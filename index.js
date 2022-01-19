@@ -39,13 +39,46 @@ Airplane.prototype.land = function () {
         + It should return a string with `name` and `age`. Example: "Mary, 50"
 */
 
-function Person() {
-  
+function Person(name,age) {
+  this.name = name;
+  this.age = age;
+  this.stomach = [];
+}
+Person.prototype.eat = function(edible){
+  if(this.stomach.length < 10){
+    this.stomach.push(edible);
+  }
 }
 
+Person.prototype.poop = function(){
+  this.stomach = [];
+}
 
+Person.prototype.toString = function(){
+  return `${this.name}, ${this.age}`;
+}
 
+const sallie = new Person('Sallie', 26);
+const mark = new Person('Mark', 23);
+const cori = new Person('Cori', 25);
 
+console.log(sallie.toString());
+console.log(mark.toString());
+console.log(cori.toString());
+
+mark.eat('pizza')
+mark.eat('pasta')
+mark.eat('tacos')
+mark.eat('sushi')
+mark.eat('sandwhich')
+mark.eat('cake')
+mark.eat('ramen')
+
+console.log(mark.stomach)
+
+mark.poop();
+
+console.log(mark.stomach);
 
 
 
@@ -63,10 +96,35 @@ function Person() {
         + The `drive` method should return a string "I ran out of fuel at x miles!" x being `odometer`.
 */
 
-function Car() {
-  
+function Car(model, milesPerGallon) {
+  this.model = model;
+  this.milesPerGallon = milesPerGallon;
+  this.tank = 0;
+  this.odometer = 0;
+}
+Car.prototype.fill = function(gallons){
+  this.tank = this.tank + gallons;
 }
 
+Car.prototype.drive = function(miles){
+const driveableMiles = this.milesPerGallon * this.tank 
+  if(driveableMiles <= miles){
+    
+  this.odometer = this.odometer + driveableMiles;
+  this.tank = 0;
+    return `I ran out of fuel at ${this.odometer} miles!`;
+  }else{
+    this.odometer = this.odometer + miles;
+    this.tank = this.tank - (this.milesPerGallon/miles)
+    return `I made it to my final destination!`
+  }
+}
+const porsche = new Car('GT3RS', 10);
+console.log(porsche);
+porsche.fill(20);
+console.log(porsche.tank);
+console.log('Task 2:', porsche.drive(200));
+console.log(porsche.odomoter);
 
 /*
   TASK 3
@@ -75,9 +133,25 @@ function Car() {
     - Besides the methods on Person.prototype, babies have the ability to `.play()`:
         + Should return a string "Playing with x", x being the favorite toy.
 */
-function Baby() {
- 
+function Baby(name, age, favoriteToy) {
+  Person.call(this, name,age,favoriteToy);
+  this.favoriteToy = favoriteToy;
+    
+};
+
+Baby.prototype = Object.create(Person.prototype)
+
+Baby.prototype.play = function(){
+  return `Playing with ${this.favoriteToy}`
 }
+
+const personTwo = new Baby({
+  name: 'Bobby',
+  age: 3,
+  favoriteToy:"Legos"
+});
+
+console.log('Task 3:'  )
 
 
 /* 
