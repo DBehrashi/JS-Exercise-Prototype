@@ -145,13 +145,15 @@ Baby.prototype.play = function(){
   return `Playing with ${this.favoriteToy}`
 }
 
-const personTwo = new Baby({
-  name: 'Bobby',
-  age: 3,
-  favoriteToy:"Legos"
-});
 
-console.log('Task 3:'  )
+const personTwo = new Baby(
+  'Bobby', 3, 'Legos'
+);
+
+console.log('Task 3:', personTwo);
+console.log('Task 3:', Baby.prototype);
+console.log('Task 3:', personTwo.play());
+
 
 
 /* 
